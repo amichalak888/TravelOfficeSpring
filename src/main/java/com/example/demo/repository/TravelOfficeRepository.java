@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.exception.MyException;
 import com.example.demo.model.Address;
 import com.example.demo.model.Customer;
 import com.example.demo.model.Trip;
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Repository
-public class TravelOffice {
+public class TravelOfficeRepository {
 
   Map <Long, Customer> customerMap = new HashMap<>();
     {
@@ -21,7 +22,8 @@ public class TravelOffice {
     }
 
     public void addCustomer(Customer customer) {
-        customerMap.put(customer.getId(), customer);
+      // customerMap.put(customer.getId(), customer);
+        throw new MyException();
     }
 
     public Map<Long, Customer> getCustomerMap() {
