@@ -35,19 +35,21 @@ class DemoApplicationTests {
         this.mockMvc.perform(get("/customerList"))
                 .andExpect((status().isOk()));
     }
-@Autowired
+
+    @Autowired
     @Test
-    public void shouldcreateCustomer () throws Exception {
+    public void shouldcreateCustomer() throws Exception {
         Customer createdCustomer = createCustomer();
-        assertThat (createdCustomer.getId()).isNotNull();
+        assertThat(createdCustomer.getId()).isNotNull();
 
     }
-    private Customer createCustomer () throws  Exception {
+
+    private Customer createCustomer() throws Exception {
         Customer customer = new Customer();
         customer.setName("Igor");
         customer.setId(1L);
-        customer.setAddress(new Address("Sezamkowa","62-510","KOnin"));
-        customer.setTrip(new Trip(new MyDate(2019,12,1),new MyDate(2019,12,24),"Malta",8888));
+        customer.setAddress(new Address("Sezamkowa", "62-510", "KOnin"));
+        customer.setTrip(new Trip(new MyDate(2019, 12, 1), new MyDate(2019, 12, 24), "Malta", 8888));
 
         String postValue = OBJECT_MAPPER.writeValueAsString(customer);
 
@@ -59,30 +61,6 @@ class DemoApplicationTests {
                 .andDo(print())
                 .andReturn();
 
-        return OBJECT_MAPPER.readValue(jaksResult.getResponse().getContentAsString(),Customer.class);
+        return OBJECT_MAPPER.readValue(jaksResult.getResponse().getContentAsString(), Customer.class);
     }
-    @Test
-    public void shouldNot () throws Exception {
-        Customer createdCustomer = createCustomer();
-        assertThat (createdCustomer.getId()).isNotNull();
-
-    }
-    private Customer createCustomer1 () throws  Exception {
-        Customer customer = new Customer();
-        customer.setName("Igor");
-        customer.setId(1L);
-        customer.setAddress(new Address("Sezamkowa","62-510","KOnin"));
-        customer.setTrip(new Trip(new MyDate(2019,12,1),new MyDate(2019,12,24),"Malta",8888));
-
-        String postValue = OBJECT_MAPPER.writeValueAsString(customer);
-
-        MvcResult jaksResult = mockMvc.perform(MockMvcRequestBuilders
-                .post("/addCustomer")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(postValue))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andReturn();
-
-        return OBJECT_MAPPER.readValue(jaksResult.getResponse().getContentAsString(),Customer.class);
-}}
+}
